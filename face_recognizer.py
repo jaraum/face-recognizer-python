@@ -32,7 +32,7 @@ while True:
     rgb_frame = cv2.cvtColor(bgr_frame, cv2.COLOR_BGR2RGB)
     bounding_boxes = face_recognition.face_locations(rgb_frame)
     
-    if process_this_frame:
+    if counter%8 == 0:
         bounding_boxes = face_recognition.face_locations(rgb_frame)
         face_encodings = face_recognition.face_encodings(rgb_frame, bounding_boxes)
         
@@ -47,12 +47,12 @@ while True:
 
 
             face_names.append(name)
-    process_this_frame = not process_this_frame
+    counter+= 1
     
     
     if bounding_boxes:
         box = bounding_boxes[0]
-        #print(box)
+        print(box)
         (top, right, bottom, left) = box
         # Draw a box around the face
         cv2.rectangle(bgr_frame, (left, top), (right, bottom), (255, 0, 0), 2)   #format: image, (x1,y1), (x2,y2), bgr_color, thickness
