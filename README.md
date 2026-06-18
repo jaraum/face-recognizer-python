@@ -80,6 +80,22 @@ By default, WSL2 cannot access your Windows webcam. You have two options:
 
 Option A (Recommended): Use an app like IP Webcam on your phone and change your code to read the network stream: cv2.VideoCapture("http://<YOUR_PHONE_IP>:8080/video")
 
-Option B: Use the usbipd-win tool on Windows to pass your USB camera through to WSL2.
+Option B: Use the usbipd-win tool on Windows to pass your USB camera through to WSL2.  
+    
+    # on windows
+    winget install --interactive --exact dorssel.usbipd-win
+
+    # then  wsl
+    sudo apt install linux-tools-virtual hwdata
+    sudo apt install v4l-utils
+
+    # windows
+    usbipd list
+    usbipd bind --busid 1-6
+    usbipd attach --wsl --busid 1-6
+    
+    # wls check if works
+    ls /dev/video* 
+    sudo chmod 777 /dev/video0 
 
 Developed with Python, OpenCV, and dlib.
